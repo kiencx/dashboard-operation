@@ -1,0 +1,29 @@
+.shell { height: 100vh; height: 100dvh; overflow: hidden; }
+.sider { position: relative !important; height: 100vh; height: 100dvh; flex-shrink: 0; background: #fff !important; border-right: 1px solid #e9edf5; z-index: 10; }
+.siderInner { height: 100%; overflow: hidden; display: flex; flex-direction: column; }
+.brand { flex: 0 0 72px; height: 72px; display: flex; align-items: center; gap: 12px; padding: 0 24px; color: #172033; font-size: 21px; font-weight: 750; }
+.brandLogo { width: auto; height: 40px; }
+.brandLogoCollapsed { width: 100%; height: auto; }
+.menu { flex: 1; min-height: 0; overflow-y: auto; border-inline-end: 0 !important; padding: 12px; font-weight: 550; }
+.menu :global(.ant-menu-item),
+.menu :global(.ant-menu-submenu-title) { height: 46px; line-height: 46px; margin-block: 5px; }
+.siderFooter { flex: 0 0 auto; padding: 12px; border-top: 1px solid #e9edf5; }
+.collapseButton { height: 44px; justify-content: flex-start; padding-inline: 16px; color: #475569 !important; font-weight: 550; }
+.collapseButton:hover { color: #172033 !important; background: #f1f5f9 !important; }
+.mainLayout { min-width: 0; height: 100%; overflow: hidden; }
+.header { flex: 0 0 72px; height: 72px; padding: 0 28px; background: #fff !important; border-bottom: 1px solid #e9edf5; }
+.headerAction { color: #475569 !important; }
+.headerAction:hover { color: #172033 !important; background: #f1f5f9 !important; }
+.profile { display: flex; align-items: center; gap: 10px; }
+.profileAvatar { color: #4256b8 !important; background: #e8edff !important; font-weight: 700; }
+.profileText { display: flex; flex-direction: column; line-height: 1.2; }
+.profileName { color: #172033; font-size: 14px; font-weight: 650; }
+.profileRole { margin-top: 3px; color: #64748b; font-size: 12px; }
+.contentScroll { min-height: 0; overflow-x: hidden; overflow-y: auto; }
+.contentInner { padding: 28px; max-width: 1600px; width: 100%; margin: 0 auto; }
+
+@media (max-width: 700px) {
+  .header { padding: 0 14px; }
+  .contentInner { padding: 20px 14px; }
+  .profileText { display: none; }
+}

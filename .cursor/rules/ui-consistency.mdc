@@ -1,0 +1,53 @@
+---
+description: Ưu tiên quy chuẩn UI thống nhất của dashboard hơn việc bám sát ảnh thiết kế
+alwaysApply: true
+---
+
+# Quy chuẩn UI thống nhất
+
+Ảnh/mockup người dùng gửi chỉ là tham chiếu về **nội dung và cấu trúc**, không bắt buộc bám theo từng chi tiết.
+Các component giống nhau phải trông và hoạt động giống nhau trên mọi màn. Khi ảnh mâu thuẫn với quy chuẩn
+dưới đây, làm theo quy chuẩn và nêu rõ chỗ khác biệt trong phần tóm tắt. Nếu cần quy chuẩn mới, áp dụng
+cho mọi chỗ tương tự (không chỉ màn đang sửa) và cập nhật file này.
+
+## Tiêu đề trang
+- `PageHeading` chỉ có tiêu đề, không có dòng mô tả hay tag.
+- Bộ lọc ngày dùng `DateRangeFilter`, đặt ở `extra` bên phải tiêu đề. Không dùng card bộ lọc riêng.
+
+## Chuyển chế độ xem
+- Chia cả trang theo nhóm dữ liệu (ví dụ Call/Chat) → `Radio.Group optionType="button" buttonStyle="solid"` (class `channelSwitch`) đặt ở `extra` của `PageHeading`, trước `DateRangeFilter`, bọc trong `headingControls`. Không dùng `Tabs` trên nền xám trang (tab không gắn với panel nào nên trông lơ lửng).
+- Chỉ đổi một biểu đồ → `Segmented` ở góc phải header của card đó (không dùng tab).
+- Màu `Segmented` lấy từ token trong `src/config/theme.ts`; không tự style riêng từng chỗ.
+
+## Card KPI (`OverviewMetricCard`)
+- Tiêu đề card màu xám, weight 500 — đủ để quét nhanh nhưng không tranh với số chính.
+- Số chính to đậm; đơn vị (`unit`) nhỏ, màu xám.
+- Mọi dòng chi tiết dạng **nhãn xám bên trái – giá trị bên phải** (`label` + `change`). Không gộp thành một chuỗi.
+- Màu chỉ dùng khi mang ý nghĩa:
+  - `trend: "up" | "down"` → mũi tên + xanh/đỏ.
+  - `tone` → màu cho giá trị cần chú ý (không có trend).
+  - Còn lại giá trị màu trung tính.
+- Chấm đầu dòng (`dot`) chỉ dùng cho **trạng thái** (ví dụ trên/dưới ngưỡng), không dùng để trang trí.
+- Giá trị dài phải tự xuống dòng, không được tràn/cắt.
+
+```ts
+// ❌ { label: "Số kho dưới ngưỡng: 10", tone: "warning" }
+// ✅ { label: "Kho dưới ngưỡng", change: "10", dot: "warning" }
+```
+
+## Màu chữ
+- Chỉ dùng token, không hard-code mã màu chữ trong CSS module:
+  `--foreground` (chữ chính, số chính), `--text-secondary` (nhãn, đơn vị, tiêu đề card, trục, chú thích),
+  `--text-positive` / `--text-negative` / `--text-warning` (trạng thái). Khai báo trong `globals.css`.
+- Chữ phụ của Ant Design (`Text type="secondary"`, tiêu đề `Statistic`) lấy màu qua token
+  `colorTextDescription` trong `src/config/theme.ts`, cùng giá trị với `--text-secondary`.
+- Màu chữ phải đạt tương phản ≥ 4.5:1 trên nền trắng. Màu icon/biểu đồ không bị giới hạn này.
+
+## Định dạng nội dung
+- Số theo kiểu Việt Nam: `12.450`, `5,6%`, tiền dùng `₫`.
+- Chính tả thống nhất: "Đại lý", "Tỷ lệ", "SIM".
+- Các số liệu suy ra được (ví dụ tỷ lệ nhỡ = 100% − tỷ lệ nhận) phải tính từ dữ liệu, không chép từ ảnh.
+
+## Biểu đồ và responsive
+- Biểu đồ có chú thích đặt bên dưới, căn giữa; nhãn trục phải chiếm chỗ trong layout (không `position: absolute`).
+- Mọi component phải dùng được ở màn ~375px: nội dung dài cho cuộn ngang trong vùng riêng hoặc đổi sang dạng gọn hơn.
