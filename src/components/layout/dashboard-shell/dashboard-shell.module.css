@@ -14,7 +14,8 @@
 .header { flex: 0 0 72px; height: 72px; padding: 0 28px; background: #fff !important; border-bottom: 1px solid #e9edf5; }
 .headerAction { color: #475569 !important; }
 .headerAction:hover { color: #172033 !important; background: #f1f5f9 !important; }
-.profile { display: flex; align-items: center; gap: 10px; }
+.profile { display: flex; align-items: center; gap: 10px; padding: 4px 8px; border: 0; border-radius: 10px; background: transparent; font: inherit; text-align: left; cursor: pointer; transition: background .15s; }
+.profile:hover { background: #f4f7fb; }
 .profileAvatar { color: #4256b8 !important; background: #e8edff !important; font-weight: 700; }
 .profileText { display: flex; flex-direction: column; line-height: 1.2; }
 .profileName { color: #172033; font-size: 14px; font-weight: 650; }

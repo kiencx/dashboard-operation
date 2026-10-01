@@ -1,0 +1,18 @@
+.page { position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 40px 16px; overflow: hidden; background: var(--background); }
+.page::before, .page::after { content: ""; position: absolute; border-radius: 50%; filter: blur(8px); pointer-events: none; }
+.page::before { width: 560px; height: 560px; top: -220px; right: -160px; background: radial-gradient(circle, rgba(79, 110, 247, .16), transparent 70%); }
+.page::after { width: 480px; height: 480px; bottom: -200px; left: -140px; background: radial-gradient(circle, rgba(139, 92, 246, .12), transparent 70%); }
+.formPanel { position: relative; width: 100%; max-width: 420px; display: flex; flex-direction: column; align-items: center; }
+.logo { width: 128px; height: auto; margin-bottom: 24px; }
+.formBox { width: 100%; padding: 36px 32px 32px; border: 1px solid #e8edf5; border-radius: 16px; background: #fff; box-shadow: 0 12px 32px rgba(26, 42, 80, .06); }
+.formHeader { display: flex; flex-direction: column; gap: 4px; margin-bottom: 28px; }
+.formTitle { margin: 0 !important; }
+.formBox :global(.ant-form-item) { margin-bottom: 20px; }
+.formBox :global(.ant-form-item-label) { padding-bottom: 6px !important; }
+.formBox :global(.ant-form-item-label > label) { font-weight: 500; }
+.formOptions { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin: -4px 0 24px; }
+.footer { margin-top: 24px; font-size: 12px; }
+
+@media (max-width: 480px) {
+  .formBox { padding: 28px 20px 24px; }
+}

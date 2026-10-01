@@ -8,15 +8,17 @@ import {
   DoubleLeftOutlined,
   DoubleRightOutlined,
   FileTextOutlined,
+  LogoutOutlined,
   ShoppingCartOutlined,
 } from "@ant-design/icons";
-import { Avatar, Badge, Button, Flex, Layout, Menu, Space, Tooltip } from "antd";
+import { Avatar, Badge, Button, Dropdown, Flex, Layout, Menu, Space, Tooltip } from "antd";
 import type { MenuProps } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { PropsWithChildren } from "react";
 import { useState } from "react";
+import { logout } from "@/features/auth/actions";
 import styles from "./dashboard-shell.module.css";
 
 const { Header, Content, Sider } = Layout;
@@ -40,10 +42,13 @@ const navigationItems: MenuProps["items"] = [
   { key: "/document-forum", icon: <FileTextOutlined />, label: <Link href="/document-forum">Forum tài liệu</Link> },
 ];
 
+const profileMenuItems: MenuProps["items"] = [
+  { key: "logout", icon: <LogoutOutlined />, label: "Đăng xuất", danger: true },
+];
+
 export function DashboardShell({ children }: PropsWithChildren) {
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
-
   return (
     <Layout className={styles.shell}>
       <Sider
@@ -99,13 +104,15 @@ export function DashboardShell({ children }: PropsWithChildren) {
               <Badge dot>
                 <Button className={styles.headerAction} type="text" aria-label="Thông báo" icon={<BellOutlined />} />
               </Badge>
-              <div className={styles.profile}>
-                <Avatar className={styles.profileAvatar}>VH</Avatar>
-                <div className={styles.profileText}>
-                  <span className={styles.profileName}>Quản lý vận hành</span>
-                  <span className={styles.profileRole}>Toàn quyền xem</span>
-                </div>
-              </div>
+              <Dropdown menu={{ items: profileMenuItems, onClick: ({ key }) => key === "logout" && logout() }} trigger={["click"]} placement="bottomRight">
+                <button type="button" className={styles.profile} aria-label="Tài khoản">
+                  <Avatar className={styles.profileAvatar}>VH</Avatar>
+                  <div className={styles.profileText}>
+                    <span className={styles.profileName}>Quản lý vận hành</span>
+                    <span className={styles.profileRole}>Toàn quyền xem</span>
+                  </div>
+                </button>
+              </Dropdown>
             </Space>
           </Flex>
         </Header>
