@@ -1,4 +1,4 @@
-import type { AgencyOrderCount, AlertSeverity, BarDatum, BarSeries, CareChannel, ContactRate, DashboardMetric, DonutSegment, InternalOrder, OverviewMetric, Warehouse, WorkStatus } from "./types";
+import type { AgencyOrderCount, AiReport, BarDatum, BarSeries, CareChannel, ContactRate, DashboardMetric, DonutSegment, InternalOrder, OverviewMetric, Warehouse, WorkStatus } from "./types";
 
 const countFormat = new Intl.NumberFormat("vi-VN");
 const shareFormat = new Intl.NumberFormat("vi-VN", { style: "percent", maximumFractionDigits: 1 });
@@ -386,11 +386,12 @@ export const careViews = careChannelData.map((channel) => {
   return { key: channel.key, metrics, series, hourly: channel.hourly, unit: labels.unit };
 });
 
-export const alerts: { key: string; area: string; issue: string; value: string; severity: AlertSeverity; updated: string }[] = [
-  { key: "1", area: "Vận hành", issue: "Tồn kho SIM vật lý dưới ngưỡng", value: "1.240 / 2.000", severity: "Nghiêm trọng", updated: "10 phút trước" },
-  { key: "2", area: "Đối soát", issue: "Phiên đối soát GPAY-C06 trễ hạn", value: "Quá hạn 3 ngày", severity: "Nghiêm trọng", updated: "35 phút trước" },
-  { key: "3", area: "CSKH", issue: "Tỷ lệ cuộc gọi nhỡ vượt SLA", value: "8,2% / 5%", severity: "Cảnh báo", updated: "1 giờ trước" },
-  { key: "4", area: "Vận hành", issue: "Đơn Online tồn đọng trên 24h", value: "68 đơn", severity: "Theo dõi", updated: "2 giờ trước" },
+export const aiReports: AiReport[] = [
+  { key: "1", area: "Vận hành", group: "Đơn nội bộ", item: "Gói cước gia hạn", summary: "Có 30 gói SF99 được gia hạn trong hôm nay" },
+  { key: "2", area: "Vận hành", group: "Kho", item: "Tồn kho H2H", summary: "Còn 685 số H2H, cảnh báo dưới ngưỡng kho" },
+  { key: "3", area: "Đối soát", group: "Đơn nội bộ", item: "Gói cước gia hạn", summary: "Lệch 12 gói SF99 giữa hệ thống và tệp đối soát CBNV" },
+  { key: "4", area: "CSKH", group: "Call", item: "Tỷ lệ gọi nhỡ", summary: "Tỷ lệ gọi nhỡ 6,5%, vượt ngưỡng SLA 5%" },
+  { key: "5", area: "CSKH", group: "Chat", item: "Chat chưa phản hồi", summary: "36 tin nhắn chưa phản hồi, tập trung khung 12h–14h" },
 ];
 
 export const backlogOrders = [

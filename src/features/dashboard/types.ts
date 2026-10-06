@@ -52,7 +52,13 @@ export type ContactRate = {
   tone: "positive" | "warning";
 };
 
-export type AlertSeverity = "Nghiêm trọng" | "Cảnh báo" | "Theo dõi";
+export type AiReport = {
+  key: string;
+  area: "Vận hành" | "Đối soát" | "CSKH";
+  group: string;
+  item: string;
+  summary: string;
+};
 export type WorkStatus = "Hoàn thành" | "Đang xử lý" | "Trễ hạn";
 
 export type DonutSegment = {
