@@ -19,6 +19,7 @@ import { usePathname } from "next/navigation";
 import type { PropsWithChildren } from "react";
 import { useState } from "react";
 import { logout } from "@/features/auth/actions";
+import type { SessionUser } from "@/features/auth/session";
 import styles from "./dashboard-shell.module.css";
 
 const { Header, Content, Sider } = Layout;
@@ -46,7 +47,18 @@ const profileMenuItems: MenuProps["items"] = [
   { key: "logout", icon: <LogoutOutlined />, label: "Đăng xuất", danger: true },
 ];
 
-export function DashboardShell({ children }: PropsWithChildren) {
+const roleLabels: Record<string, string> = {
+  SUPER_ADMIN: "Quản trị hệ thống",
+  ADMIN: "Quản trị viên",
+};
+
+function getInitials(name: string) {
+  const words = name.trim().split(/\s+/);
+  return (words.length > 1 ? words[0][0] + words.at(-1)![0] : words[0].slice(0, 2)).toUpperCase();
+}
+
+export function DashboardShell({ children, user }: PropsWithChildren<{ user: SessionUser | null }>) {
+  const displayName = user?.fullName?.trim() || "Người dùng";
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
   return (
@@ -106,10 +118,10 @@ export function DashboardShell({ children }: PropsWithChildren) {
               </Badge>
               <Dropdown menu={{ items: profileMenuItems, onClick: ({ key }) => key === "logout" && logout() }} trigger={["click"]} placement="bottomRight">
                 <button type="button" className={styles.profile} aria-label="Tài khoản">
-                  <Avatar className={styles.profileAvatar}>VH</Avatar>
+                  <Avatar className={styles.profileAvatar}>{getInitials(displayName)}</Avatar>
                   <div className={styles.profileText}>
-                    <span className={styles.profileName}>Quản lý vận hành</span>
-                    <span className={styles.profileRole}>Toàn quyền xem</span>
+                    <span className={styles.profileName}>{displayName}</span>
+                    {user && <span className={styles.profileRole}>{roleLabels[user.role] ?? user.role}</span>}
                   </div>
                 </button>
               </Dropdown>

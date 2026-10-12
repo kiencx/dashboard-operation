@@ -17,9 +17,10 @@ type DonutChartCardProps = {
   unit: string;
   centerLabel: string;
   centerKeys: string[];
+  loading?: boolean;
 };
 
-export function DonutChartCard({ title, segments, unit, centerLabel, centerKeys }: DonutChartCardProps) {
+export function DonutChartCard({ title, segments, unit, centerLabel, centerKeys, loading = false }: DonutChartCardProps) {
   const total = segments.reduce((sum, segment) => sum + segment.value, 0);
   const centerValue = segments.filter((segment) => centerKeys.includes(segment.key)).reduce((sum, segment) => sum + segment.value, 0);
   const arcs = segments.reduce<{ segment: DonutSegment; length: number; offset: number }[]>((list, segment) => {
@@ -29,7 +30,7 @@ export function DonutChartCard({ title, segments, unit, centerLabel, centerKeys 
   }, []);
 
   return (
-    <Card className={styles.chartCard}>
+    <Card className={styles.chartCard} loading={loading}>
       <Title level={4}>{title}</Title>
       <div className={styles.donutBody}>
         <div className={styles.donut}>

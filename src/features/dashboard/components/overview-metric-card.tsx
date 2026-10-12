@@ -20,9 +20,9 @@ function DetailChange({ change, trend, tone }: Pick<OverviewMetricDetail, "chang
   );
 }
 
-export function OverviewMetricCard({ metric }: { metric: OverviewMetric }) {
+export function OverviewMetricCard({ metric, loading = false }: { metric: OverviewMetric; loading?: boolean }) {
   return (
-    <Card className={styles.statCard}>
+    <Card className={styles.statCard} loading={loading}>
       <Flex justify="space-between" align="flex-start">
         <Statistic className={styles.overviewStatistic} title={metric.title} value={metric.value} suffix={metric.unit} />
         <span className={`${styles.statIcon} ${styles[metric.tone]}`}>{metricIcons[metric.icon]}</span>

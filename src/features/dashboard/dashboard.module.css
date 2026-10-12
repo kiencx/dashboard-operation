@@ -2,6 +2,9 @@
 .pageHeading h2, .chartCard h4, .breakdownCard h4, .chartValue { margin: 0 !important; }
 .dateRangeMobile { width: 100%; }
 .dateRangeMobile > * { flex: 1; min-width: 0; }
+.dateRangeMobile > .periodSelect { flex-basis: 100%; }
+.periodSelect { width: 130px; }
+.pageAlert { margin-bottom: 16px; }
 .statsGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; margin: 24px 0 22px; }
 .statsGrid.statsGridFive { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .statsGrid.statsGridThree { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -77,6 +80,7 @@
 .chartHeader { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; }
 .chartControls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
 .buSelect { width: 240px; }
+.tableSearch { width: 240px; }
 .buSelectAll { padding: 6px 12px; }
 .buSelectDivider { margin: 4px 0 !important; }
 .chartEmpty { display: flex; flex-direction: column; justify-content: center; min-height: 280px; margin: 24px 0 0 !important; }
@@ -125,4 +129,5 @@
   .chartControls :global(.ant-segmented) { display: flex; width: 100%; }
   .chartControls :global(.ant-segmented-item) { flex: 1; }
   .buSelect { width: 100%; }
+  .tableSearch { width: 160px; }
 }
