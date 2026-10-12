@@ -16,3 +16,4 @@
 @media (max-width: 480px) {
   .formBox { padding: 28px 20px 24px; }
 }
+.formError { margin-bottom: 16px; }

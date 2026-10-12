@@ -1,25 +1,30 @@
 "use client";
 
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Checkbox, Form, Input, Typography } from "antd";
+import { Alert, Button, Checkbox, Form, Input, Typography } from "antd";
 import Image from "next/image";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import { login } from "../actions";
 import styles from "../login.module.css";
 
 const { Title, Text, Link } = Typography;
 
 type LoginValues = {
-  username: string;
+  identifier: string;
   password: string;
   remember: boolean;
 };
 
 export function LoginForm({ redirectTo }: { redirectTo?: string }) {
   const [submitting, startTransition] = useTransition();
+  const [error, setError] = useState<string>();
 
-  const handleFinish = ({ username, remember }: LoginValues) => {
-    startTransition(() => login({ username, remember, redirectTo }));
+  const handleFinish = (values: LoginValues) => {
+    setError(undefined);
+    startTransition(async () => {
+      const result = await login({ ...values, redirectTo });
+      if (result?.error) setError(result.error);
+    });
   };
 
   return (
@@ -39,11 +44,11 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
             onFinish={handleFinish}
             disabled={submitting}
           >
-            <Form.Item label="Tên đăng nhập" name="username" rules={[{ required: true, whitespace: true, message: "Vui lòng nhập tên đăng nhập" }]}>
-              <Input size="large" prefix={<UserOutlined />} placeholder="Nhập tên đăng nhập" autoComplete="username" autoFocus />
+            <Form.Item label="Email hoặc số điện thoại" name="identifier" rules={[{ required: true, whitespace: true, message: "Vui lòng nhập email hoặc số điện thoại" }]}>
+              <Input size="large" prefix={<UserOutlined />} placeholder="Nhập email hoặc số điện thoại" autoComplete="username" maxLength={255} autoFocus />
             </Form.Item>
             <Form.Item label="Mật khẩu" name="password" rules={[{ required: true, message: "Vui lòng nhập mật khẩu" }]}>
-              <Input.Password size="large" prefix={<LockOutlined />} placeholder="Nhập mật khẩu" autoComplete="current-password" />
+              <Input.Password size="large" prefix={<LockOutlined />} placeholder="Nhập mật khẩu" autoComplete="current-password" maxLength={128} />
             </Form.Item>
             <div className={styles.formOptions}>
               <Form.Item name="remember" valuePropName="checked" noStyle>
@@ -51,6 +56,7 @@ export function LoginForm({ redirectTo }: { redirectTo?: string }) {
               </Form.Item>
               <Link>Quên mật khẩu?</Link>
             </div>
+            {error && <Alert className={styles.formError} type="error" showIcon title={error} />}
             <Button type="primary" htmlType="submit" size="large" block loading={submitting}>
               Đăng nhập
             </Button>

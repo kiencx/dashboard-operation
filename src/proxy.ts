@@ -13,7 +13,8 @@ export function proxy(request: NextRequest) {
 
   if (!isLoginPage && !isLoggedIn) {
     const loginUrl = new URL(LOGIN_PATH, request.url);
-    if (pathname !== HOME_PATH) loginUrl.searchParams.set(REDIRECT_PARAM, `${pathname}${search}`);
+    const redirectTo = getSafeRedirect(`${pathname}${search}`);
+    if (redirectTo !== HOME_PATH) loginUrl.searchParams.set(REDIRECT_PARAM, redirectTo);
     return NextResponse.redirect(loginUrl);
   }
 

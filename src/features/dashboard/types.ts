@@ -67,26 +67,3 @@ export type DonutSegment = {
   value: number;
   color: string;
 };
-
-export type Warehouse = {
-  code: string;
-  name: string;
-  productCode: string;
-  productName: string;
-  stock: number;
-  used: number;
-};
-
-export type AgencyOrderCount = {
-  agency: string;
-  orders: number;
-};
-
-export type InternalOrder = {
-  key: string;
-  code: string;
-  orderType: "Cấp SIM mới" | "Gia hạn gói" | "Topup";
-  partner: string;
-  status: WorkStatus;
-  createdAt: string;
-};
